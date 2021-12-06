@@ -1,23 +1,49 @@
- //alert(JSON.stringify(data, null, 4));
- //alert(Object.keys(this.state.lights["2"].modelid));
-
-//import React, { useState } from 'react';
-//import Switch from './components/Switch';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+import Switch from './components/Switch';
+import { properties } from './key.js'
 import './App.css';
 
+
+function App() {
+  const [lightStateOn, setLightStateOn] = useState(false);
+  const [lights, setLights] = useState(false);
+
+  fetch('https://10.0.0.115/api/' + properties.key + '/lights')
+  .then(res => res.json())
+  .then((data) => {
+    setLights(data)
+  })
+  .catch(console.log)
+
+  let lightName = '';
+  if(Object.keys(lights).length !== 0) {
+    lightName = lights["2"].name;
+  }
+
+  return (
+    <div>
+      <Switch
+        name={lightName}
+        isOn={lightStateOn}
+        handleToggle={() => setLightStateOn(!lightStateOn)}
+      />
+    </div>
+  );
+}
+
+/*
 class App extends Component {
 
   state = {
-    lights: {}
+    lights: {},
+    lightStateOn: true
   }
 
   componentDidMount() {
-    fetch('https://10.0.0.115/api/<KEY>/lights')
+    fetch('https://10.0.0.115/api/' + properties.key + '/lights')
     .then(res => res.json())
     .then((data) => {
       this.setState({ lights: data })
-      //alert(this.state.lights["2"].name)
     })
     .catch(console.log)
   }
@@ -40,18 +66,6 @@ class App extends Component {
     );
   }
 }
-
-  /*
-  const [value, setValue] = useState(false);
-  return (
-    <div className="App">
-      <Switch
-        name="Schlafzimmer"
-        isOn={value}
-        handleToggle={() => setValue(!value)}
-      />
-    </div>
-  );
-  */
+*/
 
 export default App;

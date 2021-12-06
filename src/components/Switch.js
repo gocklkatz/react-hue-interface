@@ -6,7 +6,7 @@ import './Switch.css';
 const Switch = ({ name, isOn, handleToggle }) => {
     return (
       <>
-        {name}: 
+        {name}: &nbsp;
         <input
           checked={isOn}
           onChange={handleToggle}
