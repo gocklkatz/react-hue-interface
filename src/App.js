@@ -1,71 +1,39 @@
-import React, { Component, useState } from 'react';
-import Switch from './components/Switch';
-import { properties } from './key.js'
+import React from 'react';
 import './App.css';
-
+import LightList from './components/LightList';
 
 function App() {
+
+  /*
+  const [lightName, setLightName] = useState('');
   const [lightStateOn, setLightStateOn] = useState(false);
-  const [lights, setLights] = useState(false);
 
-  fetch('https://10.0.0.115/api/' + properties.key + '/lights')
-  .then(res => res.json())
-  .then((data) => {
-    setLights(data)
-  })
-  .catch(console.log)
-
-  let lightName = '';
-  if(Object.keys(lights).length !== 0) {
-    lightName = lights["2"].name;
-  }
-
-  return (
-    <div>
-      <Switch
-        name={lightName}
-        isOn={lightStateOn}
-        handleToggle={() => setLightStateOn(!lightStateOn)}
-      />
-    </div>
-  );
-}
-
-/*
-class App extends Component {
-
-  state = {
-    lights: {},
-    lightStateOn: true
-  }
-
-  componentDidMount() {
+  const buttonClickHandler = () => {
     fetch('https://10.0.0.115/api/' + properties.key + '/lights')
     .then(res => res.json())
-    .then((data) => {
-      this.setState({ lights: data })
+    .then(data => {
+      setLightName(data["2"].name);
     })
     .catch(console.log)
   }
+  */
 
-  render() {
-    let lightName = '';
-    if(Object.keys(this.state.lights).length !== 0) {
-      lightName = this.state.lights["2"].name;
+  const dummyLights = [
+    {
+      id: 2,
+      name: 'Küchenlampe',
+      state: false
+    },
+    {
+      id: 7,
+      name: 'Hue ambiance lamp 2',
+      state: false
     }
+  ]
 
-    return (
-      <div>
-      <center><h1>Light List</h1></center>
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">{lightName}</h5>
-          </div>
-        </div>
-    </div>
-    );
-  }
+  return (
+    <LightList lights={dummyLights} />
+  );
 }
-*/
 
 export default App;
