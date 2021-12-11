@@ -1,17 +1,23 @@
+import React from 'react';
 import './LightList.css'
-import Switch from './Switch';
+
+import Light from './Light';
 
 const LightList = (props) => {
+    const filteredLights = props.lights.filter((light) => light.title.includes('lamp'));
+
     return (
-        <ul>
-            {props.lights.map(light => (
-                <Switch
+        <ul className={'light-list'}>
+            {filteredLights.length > 0 &&
+             filteredLights.map(light => (
+                <Light
                     key={light.id}
-                    mKey={light.id}
-                    name={light.name}
+                    lightId={light.id}
+                    name={light.title}
                     isOn={light.state}
                 />
             ))}
+            {filteredLights.length === 0 && <p>Keine Lichter vorhanden!</p>}
         </ul>
     );
 }
